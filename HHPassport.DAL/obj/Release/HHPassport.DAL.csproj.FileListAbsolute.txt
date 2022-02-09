@@ -1,0 +1,13 @@
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\HHPassport.DAL.dll.config
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\HHPassport.DAL.dll
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\HHPassport.DAL.pdb
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\EntityFramework.dll
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\Newtonsoft.Json.dll
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\System.Data.Entity.Repository.dll
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\EntityFramework.xml
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\bin\Release\Newtonsoft.Json.xml
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\obj\Release\HHPassport.DAL.csprojAssemblyReference.cache
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\obj\Release\HHPassport.DAL.csproj.CoreCompileInputs.cache
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\obj\Release\HHPassport.DAL.csproj.CopyComplete
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\obj\Release\HHPassport.DAL.dll
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HHPassport.DAL\obj\Release\HHPassport.DAL.pdb

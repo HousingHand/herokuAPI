@@ -1,0 +1,6 @@
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HH_PassportModel\bin\Release\HH_PassportModel.dll
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HH_PassportModel\bin\Release\HH_PassportModel.pdb
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HH_PassportModel\obj\Release\HH_PassportModel.csprojAssemblyReference.cache
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HH_PassportModel\obj\Release\HH_PassportModel.csproj.CoreCompileInputs.cache
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HH_PassportModel\obj\Release\HH_PassportModel.dll
+D:\SVN_Projects\HHPassportBackEnd_07_04_2021\trunk\HHPassport-API\HH_PassportModel\obj\Release\HH_PassportModel.pdb

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D222E661-9029-4092-B55F-3B7576AAA4AF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HHPassport.BAL</RootNamespace>
+    <AssemblyName>HHPassport.BAL</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interface\IAffiliateBusiness.cs" />
+    <Compile Include="Interface\IAmentiesBusiness.cs" />
+    <Compile Include="Interface\ICourseBusiness.cs" />
+    <Compile Include="Interface\IGurantorBusiness.cs" />
+    <Compile Include="Interface\IIntegratorBusiness.cs" />
+    <Compile Include="Interface\INotificationsBusiness.cs" />
+    <Compile Include="Interface\IPaymentBusiness.cs" />
+    <Compile Include="Interface\IPropertiesBusiness.cs" />
+    <Compile Include="Interface\IRewardsBusiness.cs" />
+    <Compile Include="Interface\IServiceBusiness.cs" />
+    <Compile Include="Interface\IStudentOfStudyingBusiness.cs" />
+    <Compile Include="Interface\IUniversityBusiness.cs" />
+    <Compile Include="Interface\IUserBusiness.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\AffiliateBusiness.cs" />
+    <Compile Include="Service\AmentiesBusiness.cs" />
+    <Compile Include="Service\CourseBusiness.cs" />
+    <Compile Include="Service\GurantorBusiness.cs" />
+    <Compile Include="Service\IntegratorBusiness.cs" />
+    <Compile Include="Service\NotificationsBusiness.cs" />
+    <Compile Include="Service\PaymentBusiness.cs" />
+    <Compile Include="Service\PropertiesBusiness.cs" />
+    <Compile Include="Service\RewardsBusiness.cs" />
+    <Compile Include="Service\ServiceBusiness.cs" />
+    <Compile Include="Service\StudentOfStudyingBusiness.cs" />
+    <Compile Include="Service\UniversityBusiness.cs" />
+    <Compile Include="Service\UserBusiness.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HHPassport.DAL\HHPassport.DAL.csproj">
+      <Project>{a9db0262-b910-4fc5-b690-f3a67ea8ab5d}</Project>
+      <Name>HHPassport.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HH_PassportModel\HH_PassportModel.csproj">
+      <Project>{e79aaee8-2655-401a-8e14-4c40e7314374}</Project>
+      <Name>HH_PassportModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
