@@ -48,6 +48,7 @@ namespace HHPassport.ClassicAPI.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public string RoleName { get; set; }
     }
 
     public class RegisterExternalBindingModel
@@ -81,4 +82,9 @@ namespace HHPassport.ClassicAPI.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    public class ErrorModel
+    {
+        public string Message { get; set; }
+    }
+
 }

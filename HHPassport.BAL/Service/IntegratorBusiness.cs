@@ -17,7 +17,7 @@ namespace HHPassport.BAL.Service
 {
     public class IntegratorBusiness : IIntegratorBusiness
     {
-        public LoginResponseModel tenant(TenantResponseModel tenantObj, string env,string token)
+        public LoginResponseModel tenant(TenantResponseModel tenantObj, string env, string token)
         {
             using (SqlConnection connection = new SqlConnection(HostBuilder.GetConnectionString(env)))
             {
@@ -25,39 +25,77 @@ namespace HHPassport.BAL.Service
                 try
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand("Exec [dbo].[USPCreateTenant] @first_name, @last_name, @phone_number, @nationality_text, @date_of_birth, @employment_status, @income, @email, @password, @phone_verified, @_id, @accomType, @name, @agent_name, @telephone, @address, @county_text, @county_id, @postcode, @fee, @duration, @start_date, @end_date", connection))
+                    using (SqlCommand command = new SqlCommand("Exec [dbo].[USPCreateTenant_v1] @first_name, @last_name, @phone_number, @nationality_text, @date_of_birth, @employment_status, @income, @email, @password, @phone_verified, @_id, @accomType, @name, @agent_name, @telephone, @address, @county_text, @county_id, @postcode, @fee, @duration, @start_date, @end_date, @CosignerFirstName, @CosignerLastName, @CosignerNationality,    @CosignerEmail, @CosignerPhone, @Relation, @CosignerAddress, @CosignerPassword, @Result", connection))
                     {
                         command.Parameters.AddWithValue("@first_name", tenantObj.personal_info.first_name == null ? "" : tenantObj.personal_info.first_name);
                         command.Parameters.AddWithValue("@last_name", tenantObj.personal_info.last_name == null ? "" : tenantObj.personal_info.last_name);
                         command.Parameters.AddWithValue("@phone_number", tenantObj.personal_info.phone_number == null ? "" : tenantObj.personal_info.phone_number);
-                        command.Parameters.AddWithValue("@date_of_birth", tenantObj.personal_info.date_of_birth
-                            == null ? "" : tenantObj.personal_info.date_of_birth);
+                        command.Parameters.AddWithValue("@nationality_text", tenantObj.personal_info.nationality.text == null ? "" : tenantObj.personal_info.nationality.text);
+
+                        if (tenantObj.personal_info.date_of_birth == null)
+                        {
+                            var col = command.Parameters.Add("@date_of_birth", SqlDbType.DateTime);
+                            col.Value = DBNull.Value;
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@date_of_birth", tenantObj.personal_info.date_of_birth);
+                        }
+
                         command.Parameters.AddWithValue("@employment_status", tenantObj.personal_info.employment_status == null ? "" : tenantObj.personal_info.employment_status);
-                        command.Parameters.AddWithValue("@income", tenantObj.personal_info.income== null? "":tenantObj.personal_info.income);
+                        command.Parameters.AddWithValue("@income", tenantObj.personal_info.income == null ? "" : tenantObj.personal_info.income);
+                        command.Parameters.AddWithValue("@email", tenantObj.account_info.email == null ? "" : tenantObj.account_info.email);
+                        command.Parameters.AddWithValue("@password", tenantObj.account_info.password);
                         command.Parameters.AddWithValue("@phone_verified", tenantObj.account_info.phone_verified);
-                        command.Parameters.AddWithValue("@_id", tenantObj.application_info.ap_details.ap._id == null ? "" : tenantObj.application_info.ap_details.ap._id);
+                        command.Parameters.AddWithValue("@_id", tenantObj.application_info.ap_details.ap._id);
                         command.Parameters.AddWithValue("@accomType", tenantObj.application_info.ap_details.ap.accomType
                             == null ? "" : tenantObj.application_info.ap_details.ap.accomType);
                         command.Parameters.AddWithValue("@name", tenantObj.application_info.ap_details.ap.name == null ? "" : tenantObj.application_info.ap_details.ap.name);
                         command.Parameters.AddWithValue("@agent_name", tenantObj.application_info.ap_details.ap.agent_name == null ? "" : tenantObj.application_info.ap_details.ap.agent_name);
                         command.Parameters.AddWithValue("@telephone", tenantObj.application_info.ap_details.ap.telephone == null ? "" : tenantObj.application_info.ap_details.ap.telephone);
                         command.Parameters.AddWithValue("@address", tenantObj.application_info.ap_details.property.address == null ? "" : tenantObj.application_info.ap_details.property.address);
-                        command.Parameters.AddWithValue("@county_id", tenantObj.application_info.ap_details.property.county._id == null ? "" : tenantObj.application_info.ap_details.property.county._id);
                         command.Parameters.AddWithValue("@county_text", tenantObj.application_info.ap_details.property.county.text == null ? "" : tenantObj.application_info.ap_details.property.county.text);
+                        command.Parameters.AddWithValue("@county_id", tenantObj.application_info.ap_details.property.county._id == null ? "" : tenantObj.application_info.ap_details.property.county._id);
                         command.Parameters.AddWithValue("@postcode", tenantObj.application_info.ap_details.property.postcode);
                         command.Parameters.AddWithValue("@fee", tenantObj.application_info.ap_details.rent.fee);
                         command.Parameters.AddWithValue("@duration", tenantObj.application_info.ap_details.rent.duration
                             == null ? "" : tenantObj.application_info.ap_details.rent.duration);
-                        command.Parameters.AddWithValue("@start_date", tenantObj.application_info.ap_details.rent.start_date);
-                        command.Parameters.AddWithValue("@end_date", tenantObj.application_info.ap_details.rent.end_date);
-                        command.Parameters.AddWithValue("@nationality_text", tenantObj.personal_info.nationality.text == null ? "" : tenantObj.personal_info.nationality.text);
-                        command.Parameters.AddWithValue("@email", tenantObj.account_info.email == null ? "" : tenantObj.account_info.email);
-                        command.Parameters.AddWithValue("@password", "xyz");
-                        int response= Convert.ToInt32(command.ExecuteScalar());
-                        obj = new LoginResponseModel();
-                        obj= this.GetIntegrator(tenantObj.account_info.email,env, token);
+                        if (tenantObj.application_info.ap_details.rent.start_date == null)
+                        {
+                            var col = command.Parameters.Add("@start_date", SqlDbType.DateTime);
+                            col.Value = DBNull.Value;
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@start_date", tenantObj.application_info.ap_details.rent.start_date);
+                        }
 
-                   
+                        if (tenantObj.application_info.ap_details.rent.end_date == null)
+                        {
+                            var col = command.Parameters.Add("@end_date", SqlDbType.DateTime);
+                            col.Value = DBNull.Value;
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@end_date", tenantObj.application_info.ap_details.rent.end_date);
+                        }
+
+
+                        //cosignerInfo params
+                        command.Parameters.AddWithValue("@CosignerFirstName", tenantObj.application_info.cosigner_info.first_name == null ? string.Empty : tenantObj.application_info.cosigner_info.first_name);
+                        command.Parameters.AddWithValue("@CosignerLastName", tenantObj.application_info.cosigner_info.last_name == null ? string.Empty : tenantObj.application_info.cosigner_info.last_name);
+                        command.Parameters.AddWithValue("@CosignerNationality", tenantObj.application_info.cosigner_info.nationality == null ? string.Empty : tenantObj.application_info.cosigner_info.nationality);
+                        command.Parameters.AddWithValue("@CosignerEmail", tenantObj.application_info.cosigner_info.email == null ? string.Empty : tenantObj.application_info.cosigner_info.email);
+                        command.Parameters.AddWithValue("@CosignerPhone", tenantObj.application_info.cosigner_info.phone == null ? string.Empty : tenantObj.application_info.cosigner_info.phone);
+                        command.Parameters.AddWithValue("@Relation", tenantObj.application_info.cosigner_info.relation == null ? string.Empty : tenantObj.application_info.cosigner_info.relation);
+                        command.Parameters.AddWithValue("@CosignerAddress", tenantObj.application_info.cosigner_info.address == null ? string.Empty : tenantObj.application_info.cosigner_info.address);
+                        command.Parameters.AddWithValue("@CosignerPassword", tenantObj.application_info.cosigner_info.password == null ? string.Empty : tenantObj.application_info.cosigner_info.password);
+
+                        command.Parameters.Add("@Result", SqlDbType.Int);
+                        command.Parameters["@Result"].Direction = ParameterDirection.Output;
+                        int response = Convert.ToInt32(command.ExecuteScalar());
+                        obj = new LoginResponseModel();
+                        obj = this.GetIntegrator(tenantObj.account_info.email, env, token);
                     }
                     connection.Close();
                     return obj;
@@ -68,7 +106,7 @@ namespace HHPassport.BAL.Service
                 }
             }
         }
-        public ResponseModel<string> UpdateTenant(string id,TenantResponseModel tenantObj,string env)
+        public ResponseModel<string> UpdateTenant(string id, TenantResponseModel tenantObj, string env)
         {
             using (SqlConnection connection = new SqlConnection(HostBuilder.GetConnectionString(env)))
             {
@@ -86,7 +124,18 @@ namespace HHPassport.BAL.Service
                             command.Parameters.AddWithValue("@last_name", tenantObj.personal_info.last_name == null ? "" : tenantObj.personal_info.last_name);
                             command.Parameters.AddWithValue("@phone_number", tenantObj.personal_info.phone_number == null ? "" : tenantObj.personal_info.phone_number);
                             command.Parameters.AddWithValue("@nationality_text", tenantObj.personal_info.nationality.text == null ? "" : tenantObj.personal_info.nationality.text);
-                            command.Parameters.AddWithValue("@date_of_birth", tenantObj.personal_info.date_of_birth == null ? "" : tenantObj.personal_info.date_of_birth);
+                            if (tenantObj.personal_info.date_of_birth == null)
+                            {
+                                var col = command.Parameters.Add("@date_of_birth", SqlDbType.Decimal);
+                                col.Value = DBNull.Value;
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@date_of_birth", tenantObj.personal_info.date_of_birth);
+                            }
+
+                            //command.Parameters.AddWithValue("@date_of_birth", tenantObj.personal_info.date_of_birth == null ? "" : tenantObj.personal_info.date_of_birth);
+
                             command.Parameters.AddWithValue("@employment_status", tenantObj.personal_info.employment_status == null ? "" : tenantObj.personal_info.employment_status);
                             command.Parameters.AddWithValue("@Place_of_study", tenantObj.personal_info.place_of_study.text == null ? "" : tenantObj.personal_info.place_of_study.text);
                             command.Parameters.AddWithValue("@type_of_study", tenantObj.personal_info.type_of_study.text == null ? "" : tenantObj.personal_info.type_of_study.text);
@@ -102,10 +151,10 @@ namespace HHPassport.BAL.Service
                             command.Parameters.AddWithValue("@nationality_text", DBNull.Value);
                             command.Parameters.AddWithValue("@date_of_birth", DBNull.Value);
                             command.Parameters.AddWithValue("@employment_status", DBNull.Value);
-                            command.Parameters.AddWithValue("@Place_of_study",DBNull.Value);
+                            command.Parameters.AddWithValue("@Place_of_study", DBNull.Value);
                             command.Parameters.AddWithValue("@type_of_study", DBNull.Value);
                             command.Parameters.AddWithValue("@type_of_course", DBNull.Value);
-                            command.Parameters.AddWithValue("@year_of_study",DBNull.Value);
+                            command.Parameters.AddWithValue("@year_of_study", DBNull.Value);
                             command.Parameters.AddWithValue("@income", DBNull.Value);
                         }
                         if (tenantObj.account_info != null)
@@ -119,15 +168,15 @@ namespace HHPassport.BAL.Service
                         {
                             command.Parameters.AddWithValue("@phone_verified", 0);
 
-                            command.Parameters.AddWithValue("@email",DBNull.Value);
+                            command.Parameters.AddWithValue("@email", DBNull.Value);
 
                         }
                         if (tenantObj.application_info != null && tenantObj.application_info.ap_details != null && tenantObj.application_info.ap_details.ap != null)
                         {     //command.Parameters.AddWithValue("@_id", tenantObj.application_info.ap_details.ap._id);
                             command.Parameters.AddWithValue("@accomType", tenantObj.application_info.ap_details.ap.accomType == null ? "" : tenantObj.application_info.ap_details.ap.accomType);
-                        command.Parameters.AddWithValue("@name", tenantObj.application_info.ap_details.ap.name == null ? "" : tenantObj.application_info.ap_details.ap.name);
-                        command.Parameters.AddWithValue("@agent_name", tenantObj.application_info.ap_details.ap.agent_name == null ? "" : tenantObj.application_info.ap_details.ap.agent_name);
-                        command.Parameters.AddWithValue("@telephone", tenantObj.application_info.ap_details.ap.telephone == null ? "" : tenantObj.application_info.ap_details.ap.telephone);
+                            command.Parameters.AddWithValue("@name", tenantObj.application_info.ap_details.ap.name == null ? "" : tenantObj.application_info.ap_details.ap.name);
+                            command.Parameters.AddWithValue("@agent_name", tenantObj.application_info.ap_details.ap.agent_name == null ? "" : tenantObj.application_info.ap_details.ap.agent_name);
+                            command.Parameters.AddWithValue("@telephone", tenantObj.application_info.ap_details.ap.telephone == null ? "" : tenantObj.application_info.ap_details.ap.telephone);
                         }
                         else
                         {
@@ -136,11 +185,12 @@ namespace HHPassport.BAL.Service
                             command.Parameters.AddWithValue("@agent_name", DBNull.Value);
                             command.Parameters.AddWithValue("@telephone", DBNull.Value);
                         }
-                    if (tenantObj.application_info != null && tenantObj.application_info.ap_details != null && tenantObj.application_info.ap_details.property != null) {
-                        command.Parameters.AddWithValue("@address", tenantObj.application_info.ap_details.property.address == null ? "" : tenantObj.application_info.ap_details.property.address);
-                        //command.Parameters.AddWithValue("@county_id", tenantObj.application_info.ap_details.property.county._id == null ? "" : tenantObj.application_info.ap_details.property.county._id);
-                        command.Parameters.AddWithValue("@county_text", tenantObj.application_info.ap_details.property.county.text == null ? "" : tenantObj.application_info.ap_details.property.county.text);
-                        command.Parameters.AddWithValue("@postcode", tenantObj.application_info.ap_details.property.postcode == null ? "" : tenantObj.application_info.ap_details.property.postcode);
+                        if (tenantObj.application_info != null && tenantObj.application_info.ap_details != null && tenantObj.application_info.ap_details.property != null)
+                        {
+                            command.Parameters.AddWithValue("@address", tenantObj.application_info.ap_details.property.address == null ? "" : tenantObj.application_info.ap_details.property.address);
+                            //command.Parameters.AddWithValue("@county_id", tenantObj.application_info.ap_details.property.county._id == null ? "" : tenantObj.application_info.ap_details.property.county._id);
+                            command.Parameters.AddWithValue("@county_text", tenantObj.application_info.ap_details.property.county.text == null ? "" : tenantObj.application_info.ap_details.property.county.text);
+                            command.Parameters.AddWithValue("@postcode", tenantObj.application_info.ap_details.property.postcode == null ? "" : tenantObj.application_info.ap_details.property.postcode);
                         }
                         else
                         {
@@ -212,7 +262,7 @@ namespace HHPassport.BAL.Service
                                 obj.data = new Data();
                                 obj.data.account_info = new AccountInfo();
                                 obj.data.personal_info = new PersonalInfo();
-                               // obj.data.personal_info.nationality = new Nationality();
+                                // obj.data.personal_info.nationality = new Nationality();
                                 obj.data.personal_info.place_of_study = new PlaceOfStudy();
                                 obj.data.personal_info.type_of_study = new TypeOfStudy();
                                 obj.data.application_info = new ApplicationInfo();
@@ -237,13 +287,13 @@ namespace HHPassport.BAL.Service
                                 obj.data.future_quote_info = new FutureQuoteInfo();
                                 obj.data.application_info.ap_details.property.county = new County();
                                 obj.data._id = reader["_id"].ToString();
-                               // obj.data.account_info.ref_no = reader["ref_no"].ToString();
+                                // obj.data.account_info.ref_no = reader["ref_no"].ToString();
                                 //obj.data.account_info.agent_id = reader["_id"].ToString();
-                              //  obj.data.account_info.country_code = reader["country_code"].ToString();
+                                //  obj.data.account_info.country_code = reader["country_code"].ToString();
                                 obj.data.account_info.email = reader["email"].ToString();
                                 //obj.data.account_info.type = Convert.ToInt16(reader["type"].ToString());
-                              //  obj.data.account_info.status = Convert.ToInt16(reader["status"]);
-                              //  obj.data.account_info.agent_id = reader["agent_id"].ToString();
+                                //  obj.data.account_info.status = Convert.ToInt16(reader["status"]);
+                                //  obj.data.account_info.agent_id = reader["agent_id"].ToString();
                                 //obj.data.account_info.integrator = reader["integrator"].ToString();
                                 //obj.data.account_info.source = Convert.ToInt16(reader["source"].ToString());
                                 //obj.data.account_info.sponsorship = reader["sponsorship"].ToString();
@@ -251,7 +301,7 @@ namespace HHPassport.BAL.Service
                                 obj.data.personal_info.first_name = reader["first_name"].ToString();
                                 obj.data.personal_info.last_name = reader["last_name"].ToString();
                                 obj.data.personal_info.phone_number = reader["phone_number"].ToString();
-                               // obj.data.personal_info.nationality.text = reader["nationalitytext"].ToString();
+                                // obj.data.personal_info.nationality.text = reader["nationalitytext"].ToString();
                                 obj.data.personal_info.place_of_study._id = reader["UniversityId"].ToString();
                                 obj.data.personal_info.place_of_study.text = reader["UniversityText"].ToString();
                                 obj.data.personal_info.type_of_study._id = reader["StudentStudyingId"].ToString();
@@ -262,7 +312,7 @@ namespace HHPassport.BAL.Service
                                 obj.data.application_info.ap_details.rent.duration = reader["duration"].ToString();
                                 //obj.data.application_info.ap_details.rent.start_date = Convert.ToDateTime(reader["start_date"] !=null? reader["start_date"] :"" );
                                 //obj.data.application_info.ap_details.rent.end_date = Convert.ToDateTime(reader["start_date"] != null ? reader["end_date"] : "");
-                                obj.data.application_info.ap_details.ap._id = reader["ap_id"].ToString();
+                                obj.data.application_info.ap_details.ap._id = Convert.ToInt32(reader["ap_id"].ToString());
                                 obj.data.application_info.ap_details.ap.name = reader["ag_name"].ToString();
                                 obj.data.application_info.ap_details.ap.agent_name = reader["agent_name"].ToString();
                                 obj.data.application_info.ap_details.ap.accomType = reader["accomType"].ToString();
@@ -271,7 +321,7 @@ namespace HHPassport.BAL.Service
 
                                 obj.data.application_info.ap_details.property.postcode = reader["postcode"].ToString();
                                 obj.data.application_info.ap_details.property.address = reader["address"].ToString();
-                                obj.data.docs = this.GetGurantorDocuments(obj.data._id, env , "zzz");
+                                obj.data.docs = this.GetGurantorDocuments(obj.data._id, env, "zzz");
 
 
                                 //obj.token = Token.ToString();
@@ -296,7 +346,7 @@ namespace HHPassport.BAL.Service
             }
         }
 
-        public List<docs> GetGurantorDocuments(string applicantId, string env, string isDocumentfor="")
+        public List<docs> GetGurantorDocuments(string applicantId, string env, string isDocumentfor = "")
         {
             using (SqlConnection connection = new SqlConnection(HostBuilder.GetConnectionString(env)))
             {
@@ -342,7 +392,7 @@ namespace HHPassport.BAL.Service
         {
             ResponseModel<string> response = new ResponseModel<string>();
             using (SqlConnection connection = new SqlConnection(HostBuilder.GetConnectionString(env)))
-            {  
+            {
                 try
                 {
                     connection.Open();
@@ -351,7 +401,7 @@ namespace HHPassport.BAL.Service
                         command.Parameters.AddWithValue("@email", email);
                         //command.Parameters.AddWithValue("@password", "xyz");
                         SqlDataReader reader = command.ExecuteReader();
-                        
+
                         if (reader.HasRows)
                         {
                             response.code = "Already Exist!";
@@ -376,21 +426,21 @@ namespace HHPassport.BAL.Service
                     return response;
                 }
             }
-            
+
         }
-        
-        public ResponseModel<FindByEmailModel> find_by_email(string email,string env,string token)
+
+        public ResponseModel<FindByEmailModel> find_by_email(string email, string env, string token)
         {
-           
-            ResponseModel< FindByEmailModel> response = new ResponseModel<FindByEmailModel>();
+
+            ResponseModel<FindByEmailModel> response = new ResponseModel<FindByEmailModel>();
             using (SqlConnection connection = new SqlConnection(HostBuilder.GetConnectionString(env)))
-            {  
+            {
                 try
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand("Exec [dbo].[USPTenantFindByEmail] @email", connection))
                     {
-                        command.Parameters.AddWithValue("@email", email);                       
+                        command.Parameters.AddWithValue("@email", email);
                         SqlDataReader reader = command.ExecuteReader();
                         //DataTable dt = new DataTable();
                         //dt.Load(reader);
@@ -424,7 +474,7 @@ namespace HHPassport.BAL.Service
                     return response;
                 }
             }
-            
+
         }
 
         public ResponseModel<PedDetails> TenantPDF(string id, string env)
@@ -654,7 +704,7 @@ namespace HHPassport.BAL.Service
                             response.data.StartDate = reader["start_date"].ToString();
                             response.data.agent_id = reader["agent_id"].ToString();
                             response.data.agent_Name = reader["agent_name"].ToString();
-                            
+
 
                         }
                         else
@@ -692,7 +742,7 @@ namespace HHPassport.BAL.Service
                     connection.Open();
                     using (SqlCommand command = new SqlCommand("Exec [dbo].[GetTenantBalance] @ApplicantId", connection))
                     {
-                        command.Parameters.AddWithValue("@ApplicantId", id);                        
+                        command.Parameters.AddWithValue("@ApplicantId", id);
                         SqlDataReader reader = command.ExecuteReader();
                         if (reader.HasRows)
                         {
@@ -702,7 +752,7 @@ namespace HHPassport.BAL.Service
                                 obj = new ResponseModel<PaymentInfo>();
 
                                 obj.code = "ok";
-                                obj.message = "Tenant balance successfully fetched";                            
+                                obj.message = "Tenant balance successfully fetched";
                                 obj.data = new PaymentInfo();
                                 obj.data.total_amount_paid = Convert.ToInt16(reader["total_amount_paid"]);
                                 obj.data.no_of_times_paid = Convert.ToInt16(reader["no_of_times_paid"]);
@@ -710,13 +760,13 @@ namespace HHPassport.BAL.Service
                                 obj.data.last_paid_amount = Convert.ToInt16(reader["last_paid_amount"]);
                                 obj.data.is_subscription = Convert.ToInt16(reader["is_subscription"]);
                                 obj.data.payment_incrementor = Convert.ToInt16(reader["payment_incrementor"]);
-                                obj.data.failed_incrementor = Convert.ToInt16(reader["failed_incrementor"]);                   
-                                obj.data.status = Convert.ToInt16(reader["status"]);                   
-                                
+                                obj.data.failed_incrementor = Convert.ToInt16(reader["failed_incrementor"]);
+                                obj.data.status = Convert.ToInt16(reader["status"]);
+
                             }
                         }
                     }
-                    connection.Close();                   
+                    connection.Close();
                     return obj;
                 }
                 catch (Exception ex)
@@ -735,7 +785,7 @@ namespace HHPassport.BAL.Service
             bool isValid = false;
             string env = "";
             using (SqlConnection connection = new SqlConnection(HostBuilder.GetConnectionString(env)))
-            { 
+            {
                 try
                 {
                     connection.Open();
@@ -744,12 +794,12 @@ namespace HHPassport.BAL.Service
                         command.Parameters.AddWithValue("@id", id);
 
                         command.Parameters.AddWithValue("@refno", refno);
-                        object noofRecord  = command.ExecuteScalar();
+                        object noofRecord = command.ExecuteScalar();
                         if (Convert.ToInt32(noofRecord) > 0)
                         {
                             isValid = true;
                         }
-                        
+
                     }
                     connection.Close();
                     return isValid;
@@ -759,13 +809,13 @@ namespace HHPassport.BAL.Service
                     isValid = false;
                     return isValid;
                 }
-                  
+
             }
 
         }
 
 
-        public ResponseModel<string> CreateUpdateCosigner(string id, CosignerInfo cosignerObj,string env)
+        public ResponseModel<string> CreateUpdateCosigner(string id, CosignerInfo cosignerObj, string env)
         {
             using (SqlConnection connection = new SqlConnection(HostBuilder.GetConnectionString(env)))
             {
@@ -780,8 +830,8 @@ namespace HHPassport.BAL.Service
                         command.Parameters.AddWithValue("@first_name", cosignerObj.first_name);
                         command.Parameters.AddWithValue("@last_name", cosignerObj.last_name);
                         command.Parameters.AddWithValue("@phone_number", cosignerObj.phone);
-                        command.Parameters.AddWithValue("@nationality", cosignerObj.nationality);                        
-                        command.Parameters.AddWithValue("@relation", cosignerObj.relation);                        
+                        command.Parameters.AddWithValue("@nationality", cosignerObj.nationality);
+                        command.Parameters.AddWithValue("@relation", cosignerObj.relation);
                         command.Parameters.AddWithValue("@email", cosignerObj.email);
                         command.Parameters.AddWithValue("@address", cosignerObj.address);
                         int response = Convert.ToInt32(command.ExecuteScalar());

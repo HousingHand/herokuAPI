@@ -1,4 +1,5 @@
-﻿using HHPassport.DAL.Models;
+﻿using HH_PassportModel;
+using HHPassport.DAL.Models;
 using System;
 using System.Collections.Generic;
 
@@ -39,5 +40,6 @@ namespace HHPassport.BAL.Interface
         
         //this method for deleting existing cosigner (active && tendency date <=date.now)
         int DeleteUserByEmail(string email);
+       
     }
 }

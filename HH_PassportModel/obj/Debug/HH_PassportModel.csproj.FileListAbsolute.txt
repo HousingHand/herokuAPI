@@ -9,3 +9,9 @@ D:\SVN_Projects\Heroku-API\HH_PassportModel\bin\Debug\HH_PassportModel.pdb
 D:\SVN_Projects\Heroku-API\HH_PassportModel\obj\Debug\HH_PassportModel.csproj.CoreCompileInputs.cache
 D:\SVN_Projects\Heroku-API\HH_PassportModel\obj\Debug\HH_PassportModel.dll
 D:\SVN_Projects\Heroku-API\HH_PassportModel\obj\Debug\HH_PassportModel.pdb
+D:\Projects\HHPassport\herokuAPI\HH_PassportModel\bin\Debug\HH_PassportModel.dll
+D:\Projects\HHPassport\herokuAPI\HH_PassportModel\bin\Debug\HH_PassportModel.pdb
+D:\Projects\HHPassport\herokuAPI\HH_PassportModel\obj\Debug\HH_PassportModel.csproj.CoreCompileInputs.cache
+D:\Projects\HHPassport\herokuAPI\HH_PassportModel\obj\Debug\HH_PassportModel.dll
+D:\Projects\HHPassport\herokuAPI\HH_PassportModel\obj\Debug\HH_PassportModel.pdb
+D:\Projects\HHPassport\herokuAPI\HH_PassportModel\obj\Debug\HH_PassportModel.csprojAssemblyReference.cache

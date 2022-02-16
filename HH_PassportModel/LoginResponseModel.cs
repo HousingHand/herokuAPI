@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,21 +13,29 @@ namespace HH_PassportModel
 
     public class AccountInfo
     {
+        [DefaultValue("")]
         public string ref_no { get; set; }
         public bool is_ap_missing { get; set; }
         public bool is_fast_tracked { get; set; }
+        [DefaultValue("")]
         public string country_code { get; set; }
+        [DefaultValue("")]
         public string email { get; set; }
+        [DefaultValue("")]
         public string password { get; set; }
         public int type { get; set; }
         public int status { get; set; }
         public object affiliate { get; set; }
+        [DefaultValue("")]
         public string agent_id { get; set; }
-        public int phone_verified { get; set; }
+        public bool phone_verified { get; set; }
         public object webform { get; set; }
+        [DefaultValue("")]
         public string integrator { get; set; }
         public int source { get; set; }
+        [DefaultValue("")]
         public string sponsorship { get; set; }
+        [DefaultValue("")]
         public string algolia_obj_id_new { get; set; }
         public int ac_id { get; set; }
     }
@@ -55,6 +64,7 @@ namespace HH_PassportModel
         public int rebate { get; set; }
         public int status { get; set; }
         public int is_special_pricing { get; set; }
+        [DefaultValue("")]
         public string ref_no { get; set; }
     }
 
@@ -66,7 +76,9 @@ namespace HH_PassportModel
     public class Application
     {
         public TenancyDetailsConfirmedBy tenancy_details_confirmed_by { get; set; }
+        [DefaultValue("")]
         public string stage { get; set; }
+        [DefaultValue("")]
         public string step { get; set; }
         public int @enum { get; set; }
         public DateTime last_status_update { get; set; }
@@ -89,10 +101,15 @@ namespace HH_PassportModel
         public int? status { get; set; }
         public List<object> comments { get; set; }
         public List<object> documents { get; set; }
-        public string _id { get; set; }
+    
+        public int _id { get; set; }
+        [DefaultValue("")]
         public string accomType { get; set; }
+        [DefaultValue("")]
         public string name { get; set; }
+        [DefaultValue("")]
         public string agent_name { get; set; }
+        [DefaultValue("")]
         public string telephone { get; set; }
     }
 
@@ -165,6 +182,7 @@ namespace HH_PassportModel
 
     public class PriorityInfo
     {
+        [DefaultValue("")]
         public string status { get; set; }
         public int points { get; set; }
         public int delay { get; set; }
@@ -186,44 +204,59 @@ namespace HH_PassportModel
 
     public class Nationality
     {
+        [DefaultValue("")]
         public string text { get; set; }
         public int type { get; set; }
     }
 
     public class PlaceOfStudy
     {
+        [DefaultValue("")]
         public string _id { get; set; }
+        [DefaultValue("")]
         public string text { get; set; }
     }
 
     public class TypeOfStudy
     {
+        [DefaultValue("")]
         public string _id { get; set; }
+        [DefaultValue("")]
         public string text { get; set; }
     }
 
     public class YearOfStudy
     {
         public int type { get; set; }
+        [DefaultValue("")]
         public string text { get; set; }
     }
 
     public class PersonalInfo
     {
+        [DefaultValue("")]
         public string first_name { get; set; }
+        [DefaultValue("")]
         public string last_name { get; set; }
+        [DefaultValue("")]
         public string dialing_code { get; set; }
+        [DefaultValue("")]
         public string phone_number { get; set; }
         public Nationality nationality { get; set; }
-        //public DateTime date_of_birth { get; set; }
-        public string date_of_birth { get; set; }
+       // [DefaultValue("")]
+        public DateTime date_of_birth { get; set; }
+        [DefaultValue("")]
         public string ccj { get; set; }
         public PlaceOfStudy place_of_study { get; set; }
         public TypeOfStudy type_of_study { get; set; }
+        [DefaultValue("")]
         public string type_of_course { get; set; }
         public YearOfStudy year_of_study { get; set; }
+        [DefaultValue("")]
         public string employment_status { get; set; }
+        [DefaultValue("")]
         public string income { get; set; }
+        [DefaultValue("")]
         public string _id { get; set; }
     }
 
@@ -231,24 +264,37 @@ namespace HH_PassportModel
 
     public class CosignerInfo
     {
+        [DefaultValue("")]
         public string relation { get; set; }
+        [DefaultValue("")]
         public string address { get; set; }
+        [DefaultValue("")]
         public string nationality { get; set; }
+        [DefaultValue("")]
         public string first_name { get; set; }
+        [DefaultValue("")]
         public string last_name { get; set; }
+        [DefaultValue("")]
         public string email { get; set; }
+        [DefaultValue("")]
         public string phone { get; set; }
+        [DefaultValue("")]
+        public string password { get; set; }
     }
     public class County
     {
+        [DefaultValue("")]
         public string text { get; set; }
+        [DefaultValue("")]
         public string _id { get; set; }
     }
 
     public class Property
     {
+        [DefaultValue("")]
         public string address { get; set; }
         public County county { get; set; }
+        [DefaultValue("")]
         public string postcode { get; set; }
     }
 
@@ -263,9 +309,13 @@ namespace HH_PassportModel
     public class Rent
     {
         public int? fee { get; set; }
+        [DefaultValue("")]
         public string duration { get; set; }
-        public string start_date { get; set; }
-        public string end_date { get; set; }
+        //[DefaultValue("")]
+        public DateTime start_date { get; set; }
+       // [DefaultValue("")]
+        public DateTime end_date { get; set; }
+        [DefaultValue("")]
         public string guarantor_end_date { get; set; }
         public Renewal renewal { get; set; }
     }
@@ -309,9 +359,12 @@ namespace HH_PassportModel
 
     public class LoginResponseModel
     {
+        [DefaultValue("")]
         public string code { get; set; }
+        [DefaultValue("")]
         public string message { get; set; }
         public Data data { get; set; }
+        [DefaultValue("")]
         public string token { get; set; }
     }
 
@@ -320,19 +373,27 @@ namespace HH_PassportModel
         public int? status { get; set; }
         public int? uploaded_by { get; set; }
         public int? type { get; set; }
+        [DefaultValue("")]
         public string url { get; set; }
         public DateTime date_uploaded { get; set; }
 
+        [DefaultValue("")]
         public string _id { get; set; }
     }
 
-    public class PedDetails:PersonalInfo
+    public class PedDetails : PersonalInfo
     {
+        [DefaultValue("")]
         public string StartDate { get; set; }
+        [DefaultValue("")]
         public string EndDate { get; set; }
+        [DefaultValue("")]
         public string email { get; set; }
+        [DefaultValue("")]
         public string agent_id { get; set; }
+        [DefaultValue("")]
         public string agent_Name { get; set; }
+        [DefaultValue("")]
         public string position { get; set; }
     }
 }

@@ -345,10 +345,20 @@ namespace HHPassport.ClassicAPI.Controllers
                 {
                     roleManager.Create(new IdentityRole { Name = RolesEnum.Integrator.ToString() });
                 }
-                UserManager.AddToRole(user.Id, RolesEnum.Integrator.ToString());
+                if (!roleManager.RoleExists(RolesEnum.Applicant.ToString()))
+                {
+                    roleManager.Create(new IdentityRole { Name = RolesEnum.Applicant.ToString() });
+                }
+                if (model.RoleName.ToLower() == RolesEnum.Integrator.ToString().ToLower())
+                {
+                    UserManager.AddToRole(user.Id, RolesEnum.Integrator.ToString());
+                }
+                if (model.RoleName.ToLower() == RolesEnum.Applicant.ToString().ToLower())
+                {
+                    UserManager.AddToRole(user.Id, RolesEnum.Applicant.ToString());
+                }
                 #endregion
             }
-
             return Ok();
         }
 
@@ -383,6 +393,15 @@ namespace HHPassport.ClassicAPI.Controllers
                 return GetErrorResult(result);
             }
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("GetHashPassword")]
+        public string GetHashPassword(string passwordStr)
+        {
+            //var test = UserManager.PasswordHasher.VerifyHashedPassword("AMxifUW2TolzVkg+kxNy0+kWp21uhNc/BUFxre/ZM8MNStkVaLa3CdgS9LzOP/8dtw==", "@Password1");
+            return UserManager.PasswordHasher.HashPassword(passwordStr);
         }
 
         protected override void Dispose(bool disposing)

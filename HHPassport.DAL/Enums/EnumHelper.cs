@@ -160,8 +160,11 @@ namespace HHPassport.DAL.Enums
             [Description("/api/Affiliate/AddUpdateAffiliate")]
             AddUpdateAffiliate,
             [Description("/api/Affiliate/ActivateDeactivateAffiliate")]
-            ActivateDeactivateAffiliate
+            ActivateDeactivateAffiliate,
             #endregion
+
+            [Description("/api/Account/GetHashPassword")]
+            GetHashPassword,
         }
         public static string GetDescription<T>(this T enumValue)
            where T : struct, IConvertible

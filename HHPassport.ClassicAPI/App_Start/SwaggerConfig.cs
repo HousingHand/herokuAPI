@@ -199,7 +199,7 @@ namespace HHPassport.ClassicAPI
                     // Use the "DocumentTitle" option to change the Document title.
                     // Very helpful when you have multiple Swagger pages open, to tell them apart.
                     //
-                    c.DocumentTitle("HH Passport Classic API");
+                    c.DocumentTitle("HHPassport Classic API");
 
                     // Use the "CssTheme" to add a theme to your UI.
                     // Options are:
@@ -211,7 +211,7 @@ namespace HHPassport.ClassicAPI
                     //    theme-newspaper-css
                     //    theme-outline-css
                     //
-                    c.CssTheme("theme-material-css");
+                    c.CssTheme("theme-newspaper-css");
 
                     // Use the "InjectStylesheet" option to enrich the UI with one or more additional CSS stylesheets.
                     // The file must be included in your project as an "Embedded Resource", and then the resource's
@@ -229,8 +229,8 @@ namespace HHPassport.ClassicAPI
                     // strings as the possible choices. You can use this option to change these to something else,
                     // for example 0 and 1.
                     //
-                    //c.BooleanValues(new[] { "0", "1" });
-
+                    c.BooleanValues(new[] { "0", "1" });
+                    
                     // Controls the display of vendor extension (x-) fields and values for Operations, Parameters, and Schema.
                     // The default is true.
                     //
@@ -238,7 +238,7 @@ namespace HHPassport.ClassicAPI
 
                     // Show pattern, minLength, maxLength, minimum, and maximum fields
                     //
-                    //c.ShowCommonExtensions(true);
+                    c.ShowCommonExtensions(true);
 
                     // By default, swagger-ui will validate specs against swagger.io's online validator and display the result
                     // in a badge at the bottom of the page. Use these options to set a different validator URL or to disable the

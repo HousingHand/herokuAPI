@@ -36,8 +36,8 @@ namespace HHPassport.ClassicAPI.Providers
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             IFormCollection parameters = await context.Request.ReadFormAsync();
             string Env = parameters.Get("SecretKey");
-            //KeyValidatorModel objModel = new UserBusiness().IsValidKey( Env,"");
-            KeyValidatorModel objModel = new KeyValidatorModel();
+            KeyValidatorModel objModel = new UserBusiness().IsValidKey(Env,"");
+           // KeyValidatorModel objModel = new KeyValidatorModel();
             if (objModel == null)
             {
                 context.SetError("invalid_grant", "Invalid Key");

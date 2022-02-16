@@ -10,6 +10,7 @@ using static HHPassport.DAL.Enums.EnumHelper;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
+using HH_PassportModel;
 //using HH_PassportModel;
 
 namespace HHPassport.BAL.Service
@@ -863,45 +864,45 @@ namespace HHPassport.BAL.Service
                 return retVal;
             }
         }
-        //public KeyValidatorModel IsValidKey(string key, string email)
-        //{
-        //    KeyValidatorModel objResponse = null;
+        public KeyValidatorModel IsValidKey(string key, string email)
+        {
+            KeyValidatorModel objResponse = null;
 
 
-        //    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
-        //    {
-        //        try
-        //        {
-        //            connection.Open();
-        //            using (SqlCommand command = new SqlCommand("Exec [dbo].[USPGetIntegratorKeyInfo] @Key,@email", connection))
-        //            {
-        //                command.Parameters.AddWithValue("@Key", key);
-        //                command.Parameters.AddWithValue("@email", email);
-        //                SqlDataReader reader = command.ExecuteReader();
-        //                if (reader.HasRows)
-        //                {
-        //                    while (reader.Read())
-        //                    {
-        //                        objResponse = new KeyValidatorModel();
-        //                        objResponse.user_id = Convert.ToString(reader["user_id"]);
-        //                        objResponse.Sandbox_key = Convert.ToString(reader["Sandbox_key"]);
-        //                        objResponse.Prod_key = Convert.ToString(reader["Prod_key"]);
-        //                        objResponse.IsProduction = Convert.ToBoolean(reader["IsProduction"]);
-        //                        objResponse.email = Convert.ToString(reader["email"]);
-        //                    }
-        //                }
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("Exec [dbo].[USPGetIntegratorKeyInfo] @Key,@email", connection))
+                    {
+                        command.Parameters.AddWithValue("@Key", key);
+                        command.Parameters.AddWithValue("@email", email);
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                objResponse = new KeyValidatorModel();
+                                objResponse.user_id = Convert.ToString(reader["user_id"]);
+                                objResponse.Sandbox_key = Convert.ToString(reader["Sandbox_key"]);
+                                objResponse.Prod_key = Convert.ToString(reader["Prod_key"]);
+                                objResponse.IsProduction = Convert.ToBoolean(reader["IsProduction"]);
+                                objResponse.email = Convert.ToString(reader["email"]);
+                            }
+                        }
 
-        //            }
+                    }
 
-        //            connection.Close();
-        //        }
-        //        catch (Exception ex)
-        //        {
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
 
-        //        }
-        //        return objResponse;
-        //    }
-        //}
+                }
+                return objResponse;
+            }
+        }
 
         public List<UserModel> GetAffiliateAP(string affiliateCode, string searchStr)
         {
